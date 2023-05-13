@@ -23,11 +23,21 @@ void loop()
 		digitalWrite( LED_GREEN, HIGH );
 		digitalWrite( LED_BLUE, HIGH );
 		delay(MAIN_DELAY);
+		digitalWrite( LED_RED, LOW );
+		digitalWrite( LED_GREEN, LOW );
+		digitalWrite( LED_BLUE, LOW );
+	} else if ( i == 1 ) {
 		digitalWrite( LED_RED, HIGH );
-		digitalWrite( LED_GREEN, HIGH );
-		digitalWrite( LED_BLUE, HIGH );
-	} else {
 		delay(MAIN_DELAY);
+		digitalWrite( LED_RED, LOW );
+	} else if ( i == 2 ) {
+		digitalWrite( LED_GREEN, HIGH );
+		delay(MAIN_DELAY);
+		digitalWrite( LED_GREEN, LOW );
+	} else if ( i == 3 ) {
+		digitalWrite( LED_BLUE, HIGH );
+		delay(MAIN_DELAY);
+		digitalWrite( LED_BLUE, LOW );
 	}
 	if ( ++i > 3 ) i = 0;
 	delay(MAIN_DELAY);
