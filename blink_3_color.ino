@@ -17,7 +17,7 @@ uint8_t		i = 0;
 
 void loop()
 {
-  digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ HIGH);
+  digitalWrite(LED_BUILTIN, HIGH );
   if ( i == 0 ) {
 		digitalWrite( LED_RED, HIGH );
 		digitalWrite( LED_GREEN, HIGH );
@@ -39,6 +39,7 @@ void loop()
 		delay(MAIN_DELAY);
 		digitalWrite( LED_BLUE, LOW );
 	}
+  digitalWrite(LED_BUILTIN, LOW );
 	if ( ++i > 3 ) i = 0;
 	delay(MAIN_DELAY);
 }
