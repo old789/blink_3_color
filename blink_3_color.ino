@@ -25,7 +25,11 @@ void loop() {
   } else {
     digitalWrite( ( i + LED_RED - 1 ), state );
   }
-  if ( state == LOW ) i++;
-  if ( i > 3 ) i = 0;
+  if ( state == LOW ) {
+    i++;
+    if ( i > 3 ) {
+      i = 0;
+    }
+  }
   delay(MAIN_DELAY);
 }
