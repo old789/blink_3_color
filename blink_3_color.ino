@@ -20,7 +20,7 @@ void loop() {
   digitalWrite( LED_BUILTIN, state );
   if ( i == 0 ) {
     for ( uint8_t j = 0; ( j + LED_RED ) <= LED_BLUE; j++ ) {
-      digitalWrite( j, state );
+      digitalWrite( ( j + LED_RED ), state );
     }
   } else {
     digitalWrite( ( i + LED_RED - 1 ), state );
