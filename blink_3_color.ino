@@ -14,32 +14,20 @@ void setup()
 }
 
 uint8_t		i = 0;
+uint8_t		state = LOW;
 
 void loop()
 {
-  digitalWrite(LED_BUILTIN, HIGH );
+	state ^= HIGH;
+  digitalWrite(LED_BUILTIN, state );
   if ( i == 0 ) {
-		digitalWrite( LED_RED, HIGH );
-		digitalWrite( LED_GREEN, HIGH );
-		digitalWrite( LED_BLUE, HIGH );
-		delay(MAIN_DELAY);
-		digitalWrite( LED_RED, LOW );
-		digitalWrite( LED_GREEN, LOW );
-		digitalWrite( LED_BLUE, LOW );
-	} else if ( i == 1 ) {
-		digitalWrite( LED_RED, HIGH );
-		delay(MAIN_DELAY);
-		digitalWrite( LED_RED, LOW );
-	} else if ( i == 2 ) {
-		digitalWrite( LED_GREEN, HIGH );
-		delay(MAIN_DELAY);
-		digitalWrite( LED_GREEN, LOW );
-	} else if ( i == 3 ) {
-		digitalWrite( LED_BLUE, HIGH );
-		delay(MAIN_DELAY);
-		digitalWrite( LED_BLUE, LOW );
+		for ( uint8_t j = 0; ( j + LED_RED ) <= LED_BLUE; j++ ){
+			digitalWrite( j, state );
+		}
+	} else {
+		digitalWrite( ( i + LED_RED - 1 ), state );
 	}
-  digitalWrite(LED_BUILTIN, LOW );
-	if ( ++i > 3 ) i = 0;
+	if ( state == LOW ) i++;
+	if ( i > 3 ) i = 0;
 	delay(MAIN_DELAY);
 }
