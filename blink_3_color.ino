@@ -12,15 +12,19 @@ void setup() {
   pinMode(LED_BLUE, OUTPUT);
 }
 
-uint8_t   mode = 1;
+uint8_t   mode = 2;
 
 uint8_t   i = 0;
 uint8_t   state = LOW;
+uint8_t   color = LED_RED;
 
 void loop() {
   switch (mode) {
     case 1:
       all_colors_in_turn();
+      break;
+    case 2:
+      fade_3_colors_in_turn();
       break;
     default:
       blink_4_color();
@@ -61,4 +65,27 @@ void all_colors_in_turn() {
     digitalWrite( LED_BUILTIN, digitalRead(LED_BUILTIN) ^ HIGH );
     delay(MAIN_DELAY / 2);
   }
+}
+
+void fade_3_colors_in_turn(){
+  if ( ( color < LED_RED ) || ( color > LED_BLUE ) ) {
+    color = LED_RED;
+    state = 0;
+    i = 0;
+  }
+  analogWrite( color, i );
+  if ( state == 0 ) {
+    i += 0xf;
+    if ( i > 240 ) state = 1;
+  } else {
+    i -= 0xf;
+    if ( i < 0xf ) {
+      state = 0;
+      color++;
+      if ( color  > LED_BLUE ) {
+        color = LED_RED;
+      }
+    }
+  }
+  delay( 300 );
 }
