@@ -79,6 +79,7 @@ void fade_3_colors_in_turn(){
     i -= 0xf;
   }
   analogWrite( color, i );
+  digitalWrite( LED_BUILTIN, ~state & HIGH );
   if ( state == 0 ) {
     if ( i > 240 ) state = 1;
   } else {
