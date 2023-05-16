@@ -101,6 +101,6 @@ void fade_3_colors_in_turn(){
 void random_base_colors() {
   color = (uint8_t)random(0,3) + LED_RED;
   digitalWrite( color, HIGH );
-  delay(MAIN_DELAY);
+  delay( 1000 );
   digitalWrite( color, LOW );
 }
