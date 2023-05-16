@@ -5,14 +5,15 @@
 
 #define   MAIN_DELAY    2000
 
+uint8_t   mode = 3;
+
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
   pinMode(LED_BLUE, OUTPUT);
+  if ( mode == 3) randomSeed(analogRead(0));
 }
-
-uint8_t   mode = 2;
 
 uint8_t   i = 0;
 uint8_t   state = LOW;
@@ -25,6 +26,9 @@ void loop() {
       break;
     case 2:
       fade_3_colors_in_turn();
+      break;
+    case 3:
+      random_base_colors();
       break;
     default:
       blink_4_color();
@@ -93,3 +97,10 @@ void fade_3_colors_in_turn(){
   }
   delay( 300 );
  }
+ 
+void random_base_colors() {
+  color = (uint8_t)random(0,3) + LED_RED;
+  digitalWrite( color, HIGH );
+  delay(MAIN_DELAY);
+  digitalWrite( color, LOW );
+}
