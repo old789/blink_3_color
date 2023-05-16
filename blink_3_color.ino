@@ -73,12 +73,15 @@ void fade_3_colors_in_turn(){
     state = 0;
     i = 0;
   }
-  analogWrite( color, i );
   if ( state == 0 ) {
     i += 0xf;
-    if ( i > 240 ) state = 1;
   } else {
     i -= 0xf;
+  }
+  analogWrite( color, i );
+  if ( state == 0 ) {
+    if ( i > 240 ) state = 1;
+  } else {
     if ( i < 0xf ) {
       state = 0;
       color++;
@@ -88,4 +91,4 @@ void fade_3_colors_in_turn(){
     }
   }
   delay( 300 );
-}
+ }
