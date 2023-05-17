@@ -5,19 +5,23 @@
 
 #define   MAIN_DELAY    2000
 
-uint8_t   mode = 1;
+#define   MAX_TURN      3
+
+uint8_t   automode = 3;
+uint8_t   mode = 0;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
   pinMode(LED_BLUE, OUTPUT);
-  if ( mode == 3) randomSeed(analogRead(0));
+  if ( ( mode == 3 ) || ( automode > 0 ) ) randomSeed(analogRead(0));
 }
 
 uint8_t   i = 0;
 uint8_t   state = LOW;
 uint8_t   color = LED_RED;
+uint16_t  cnt = 0;
 
 void loop() {
   switch (mode) {
@@ -32,6 +36,13 @@ void loop() {
       break;
     default:
       blink_4_color();
+  }
+  if ( automode > 0 ) {
+    if ( cnt > MAX_TURN ) {
+      mode++;
+      cnt = 0;
+      if ( mode > automode ) mode = 0;
+    }
   }
 }
 
@@ -49,6 +60,7 @@ void blink_4_color() {
     i++;
     if ( i > 3 ) {
       i = 0;
+      if ( automode > 0 ) cnt++;
     }
   }
   delay(MAIN_DELAY);
@@ -59,6 +71,7 @@ void all_colors_in_turn() {
 
   state++;
   state &= 7;
+  if ( ( state == 7 ) && ( automode > 0 ) ) cnt++;
 
   for ( uint8_t j = 0; j < 2 ; j++ ) {
     digitalWrite( LED_BUILTIN, digitalRead(LED_BUILTIN) ^ HIGH );
@@ -87,6 +100,7 @@ void fade_3_colors_in_turn(){
       color++;
       if ( color  > LED_BLUE ) {
         color = LED_RED;
+        if ( automode > 0 ) cnt++;
       }
     }
   }
@@ -98,4 +112,8 @@ void random_base_colors() {
   digitalWrite( color, HIGH );
   delay( 1000 );
   digitalWrite( color, LOW );
+  if ( ( automode > 0 ) && ( ++i > 10 ) ) { 
+    cnt++;
+    i = 0;
+  }
 }
