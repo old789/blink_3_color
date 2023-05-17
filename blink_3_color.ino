@@ -5,7 +5,7 @@
 
 #define   MAIN_DELAY    2000
 
-uint8_t   mode = 3;
+uint8_t   mode = 1;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -55,12 +55,7 @@ void blink_4_color() {
 }
 
 void all_colors_in_turn() {
-  uint8_t kl = 0;
-  
-  for ( uint8_t j = 0; j < 3 ; j++ ) {
-    kl = ( state >> j ) & 1;
-    digitalWrite( ( j + LED_RED ), kl );
-  }
+  PORTB = ( state << 1 ) & B1110;
 
   state++;
   state &= 7;
