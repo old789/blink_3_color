@@ -7,7 +7,7 @@
 
 #define   MAX_TURN      3
 
-uint8_t   automode = 3;
+uint8_t   automode = 0;
 uint8_t   mode = 0;
 
 void setup() {
@@ -50,9 +50,8 @@ void blink_4_color() {
   state ^= HIGH;
   digitalWrite( LED_BUILTIN, state );
   if ( i == 0 ) {
-    for ( uint8_t j = 0; ( j + LED_RED ) <= LED_BLUE; j++ ) {
-      digitalWrite( ( j + LED_RED ), state );
-    }
+    if ( state > 0 ) PORTB |= B00001110;
+    else PORTB &= B11110001;
   } else {
     digitalWrite( ( i + LED_RED - 1 ), state );
   }
